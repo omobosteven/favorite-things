@@ -1,0 +1,16 @@
+dist: xenial
+language: python
+python:
+  - "3.7"
+
+services:
+  - postgresql
+
+install:
+  - pipenv install
+
+script:
+  - coverage run -m pytest
+
+after_success:
+  - coveralls
