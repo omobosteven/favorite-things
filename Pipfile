@@ -4,11 +4,18 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+favorite-thing = {editable = true,path = "."}
 
 [packages]
 django = "*"
 flake8 = "*"
 psycopg2-binary = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+coverage = "*"
+pytest-django = "*"
+pytest = "*"
+coveralls = "*"
 
 [requires]
 python_version = "3.7"
