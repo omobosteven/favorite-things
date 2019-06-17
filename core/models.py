@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from safedelete.models import SafeDeleteModel, SOFT_DELETE_CASCADE
 
 
 class UserManger(BaseUserManager):
@@ -38,3 +39,26 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManger()
 
     USERNAME_FIELD = 'email'
+
+
+class Category(SafeDeleteModel):
+    _safedelete_policy = SOFT_DELETE_CASCADE
+
+    category_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    default = models.BooleanField(default=False)
+    user = models.ManyToManyField(User, related_name='categories', through='CategoryUser')
+
+    class Meta:
+        ordering = ['category_id']
+        verbose_name_plural = 'categories'
+
+
+class CategoryUser(models.Model):
+
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'core_category_user'
+        unique_together=[['category', 'user']]

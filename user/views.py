@@ -10,6 +10,7 @@ from rest_framework_simplejwt.settings import api_settings
 
 class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
+    authentication_classes = ()
     permission_classes = (AllowAny,)
 
     def create(self, request, *args, **kwargs):
@@ -26,7 +27,7 @@ class CreateUserView(generics.CreateAPIView):
         response = Response(response_data, status=status.HTTP_201_CREATED)
         expiration = (datetime.utcnow() +
                       api_settings.ACCESS_TOKEN_LIFETIME)
-        response.set_cookie('access_token',
+        response.set_cookie('jwt_token',
                             serializer.data['token'],
                             expires=expiration,
                             secure=True,
@@ -36,6 +37,7 @@ class CreateUserView(generics.CreateAPIView):
 
 class LoginUserView(generics.CreateAPIView):
     serializer_class = UserLoginSerializer
+    authentication_classes = ()
     permission_classes = (AllowAny, )
 
     def create(self, request, *args, **kwargs):
@@ -57,8 +59,8 @@ class LoginUserView(generics.CreateAPIView):
             response.set_cookie('jwt_token',
                                 serializer.data['token'],
                                 expires=expiration,
-                                secure=True,
-                                httponly=True)
+                                secure=False,
+                                httponly=False)
             return response
 
         response_data = {

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'safedelete',
     'rest_framework',
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
@@ -96,7 +97,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'core.authentication.CookieAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
@@ -107,6 +108,7 @@ SIMPLE_JWT = {
     'SIGNING_KEY': os.getenv('SIMPLEJWT_KEY'),
     'USER_ID_FIELD': 'user_id',
     'ALGORITHM': 'HS256',
+    'AUTH_HEADER_TYPES': ('Bearer',)
 }
 
 # Password validation
