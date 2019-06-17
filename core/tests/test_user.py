@@ -1,16 +1,10 @@
 from django.urls import reverse
-from rest_framework.test import APITestCase
 from rest_framework import status
 from django.contrib.auth import get_user_model
+from .base import BaseViewTest
 
 
-class UserAuthTests(APITestCase):
-    def setUp(self) -> None:
-        # create a admin user
-        self.user = get_user_model().objects.create_superuser(
-            email='admin@test.com',
-            password='pass1234',
-        )
+class UserAuthTests(BaseViewTest):
 
     def test_new_user_invalid_email(self):
         """
@@ -27,7 +21,7 @@ class UserAuthTests(APITestCase):
         data = {
             'firstname': 'test',
             'lastname': 'user',
-            'email': 'test@test.com',
+            'email': 'user@test.com',
             'password': 'pass1234'
         }
         response = self.client.post(reverse('create_user'), data)
