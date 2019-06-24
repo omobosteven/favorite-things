@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4c34068bc6f97631305370dc5a1efec5e254195a918071eaa5723a4b153aa25b"
+            "sha256": "cfc230b30281b724c1eb5dd501d725530d6dd42b038558851947466025440fc7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -96,13 +96,6 @@
             ],
             "index": "pypi",
             "version": "==2.2.2"
-        },
-        "django-safedelete": {
-            "hashes": [
-                "sha256:24037eb9d0e581d1aab350c2622db1398bbc47118da5d8a84c434aad20446a68"
-            ],
-            "index": "pypi",
-            "version": "==0.5.1"
         },
         "djangorestframework": {
             "hashes": [

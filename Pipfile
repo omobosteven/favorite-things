@@ -15,7 +15,6 @@ coverage = "*"
 pytest-django = "*"
 pytest = "*"
 coveralls = "*"
-django-safedelete = "*"
 favorite-things = {editable = true,path = "."}
 
 [requires]

@@ -3,8 +3,6 @@ from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
-from safedelete.models import SafeDeleteModel, SOFT_DELETE_CASCADE
-from django.db.models import Q
 
 
 class UserManger(BaseUserManager):
@@ -87,3 +85,13 @@ class FavoriteThing(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class AuditLog(models.Model):
+    audit_log_id = models.AutoField(primary_key=True)
+    log = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='audit_log')
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.log

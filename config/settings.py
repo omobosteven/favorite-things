@@ -38,12 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'safedelete',
     'rest_framework',
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
     'favorite_thing.apps.FavoriteThingConfig',
     'category.apps.CategoryConfig',
+    'audit_log.apps.AuditLogConfig',
 ]
 
 MIDDLEWARE = [
