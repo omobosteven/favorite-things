@@ -1,6 +1,6 @@
 [run]
 branch=true
-source=core,item,user,category
+source=core,favorite_thing,user,category
 omit=
     *migrations*
     *tests*

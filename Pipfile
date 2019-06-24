@@ -4,7 +4,6 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-favorite-thing = {editable = true,path = "."}
 
 [packages]
 django = "*"
@@ -17,6 +16,7 @@ pytest-django = "*"
 pytest = "*"
 coveralls = "*"
 django-safedelete = "*"
+favorite-things = {editable = true,path = "."}
 
 [requires]
 python_version = "3.7"
