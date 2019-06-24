@@ -21,4 +21,5 @@ urlpatterns = [
     path('users/', include('user.urls')),
     path('categories/', include('category.urls')),
     path('things/', include('favorite_thing.urls')),
+    path('logs/', include('audit_log.urls')),
 ]
