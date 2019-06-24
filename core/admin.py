@@ -8,3 +8,4 @@ admin.site.index_title = "Welcome to Favorite_things Admin portal"
 
 admin.site.register(models.User)
 admin.site.register(models.Category)
+admin.site.register(models.FavoriteThing)

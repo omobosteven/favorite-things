@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='favorite_thing',
+    name='favorite_things',
     version='1.0',
     scripts=['manage.py'],
     author='Stephen Omobo',

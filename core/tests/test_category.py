@@ -29,10 +29,10 @@ class CategoryTest(BaseViewTest):
         Ensure that an admin can create default categories
         """
         self.login_client('admin@test.com', 'pass1234')
-        data = {'name': 'food'}
+        data = {'name': 'people'}
         response = self.client.post(reverse('create_list_category'), data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data['name'], 'food')
+        self.assertEqual(response.data['name'], 'people')
         self.assertEqual(response.data['default'], True)
 
     def test_user_recreate_default(self):
@@ -70,5 +70,5 @@ class CategoryTest(BaseViewTest):
         self.login_client('test@test.com', 'pass1234')
         response = self.client.get(reverse('create_list_category'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 2)
+        self.assertEqual(len(response.data), 3)
 

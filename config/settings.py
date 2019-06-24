@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
-    'item.apps.ItemConfig',
+    'favorite_thing.apps.FavoriteThingConfig',
     'category.apps.CategoryConfig',
 ]
 
@@ -88,7 +88,7 @@ DATABASES = {
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASS'),
         'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+        'PORT': os.getenv('DB_PORT')
     }
 }
 
