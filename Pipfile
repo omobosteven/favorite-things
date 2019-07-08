@@ -16,6 +16,7 @@ pytest-django = "*"
 pytest = "*"
 coveralls = "*"
 favorite-things = {editable = true,path = "."}
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.7"

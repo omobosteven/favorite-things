@@ -18,20 +18,16 @@ class CreateUserView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         response_data = {
-            'email': serializer.data['email'],
             'firstname': serializer.data['firstname'],
-            'lastanme': serializer.data['lastname'],
             'message': 'Welcome, registration successfully'
         }
 
         response = Response(response_data, status=status.HTTP_201_CREATED)
         expiration = (datetime.utcnow() +
                       api_settings.ACCESS_TOKEN_LIFETIME)
-        response.set_cookie('jwt_token',
-                            serializer.data['token'],
-                            expires=expiration,
-                            secure=True,
-                            httponly=True)
+        response.set_cookie(key='jwt_token',
+                            value=serializer.data['token'],
+                            expires=expiration,)
         return response
 
 
@@ -47,20 +43,22 @@ class LoginUserView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        user = authenticate(request, username=email.strip(), password=password.strip(), **kwargs)
+        user = authenticate(
+            request,
+            username=email.strip(),
+            password=password.strip(), **kwargs)
 
         if user is not None:
             response_data = {
+                'firstname': user.firstname,
                 'message': 'Welcome back, Login successfully'
             }
             response = Response(response_data, status=status.HTTP_200_OK)
             expiration = (datetime.utcnow() +
                           api_settings.ACCESS_TOKEN_LIFETIME)
-            response.set_cookie('jwt_token',
-                                serializer.data['token'],
-                                expires=expiration,
-                                secure=False,
-                                httponly=False)
+            response.set_cookie(key='jwt_token',
+                                value=serializer.data['token'],
+                                expires=expiration)
             return response
 
         response_data = {

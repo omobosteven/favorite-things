@@ -4,4 +4,4 @@ exclude =
     __pychache__,
     manage.py,
     settings.py
-max-line-length = 90
+max-line-length = 79
