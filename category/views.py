@@ -20,7 +20,8 @@ class CreateListCategoryView(generics.ListCreateAPIView):
 
         name = serializer.validated_data.get('name')
 
-        is_default = Category.objects.filter(Q(name=name) & Q(default=True)).values()
+        is_default = Category.objects.filter(
+            Q(name=name) & Q(default=True)).values()
         if is_default:
             return Response({
                 'message': 'Category already exist'
@@ -29,7 +30,8 @@ class CreateListCategoryView(generics.ListCreateAPIView):
         if Category.objects.filter(name=name):
             try:
                 existing_category = Category.objects.get(name=name)
-                CategoryUser.objects.create(user=self.request.user, category=existing_category)
+                CategoryUser.objects.create(
+                    user=self.request.user, category=existing_category)
                 return Response({
                     'message': 'Category added successfully'
                 }, status.HTTP_201_CREATED)
@@ -43,5 +45,6 @@ class CreateListCategoryView(generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get_queryset(self):
-        queryset = Category.objects.filter(Q(default=True) | Q(user=self.request.user))
+        queryset = Category.objects.filter(
+            Q(default=True) | Q(user=self.request.user))
         return queryset

@@ -3,28 +3,22 @@ from core.models import FavoriteThing
 from django.db.models import Q
 from favorite_thing.helper import reorder_rankings, reorder_rankings_subtract
 from django.db.utils import IntegrityError
+from core.models import Category
 
 
 class FavoriteThingSerializer(serializers.ModelSerializer):
+    category = serializers.SlugRelatedField(
+        queryset=Category.objects.all(), slug_field='name')
 
     class Meta:
         model = FavoriteThing
         fields = ('favorite_thing_id', 'title', 'description', 'ranking',
                   'metadata', 'category', 'user', 'created_at', 'modified_at')
-        read_only_fields = ('favorite_thing_id', 'user', 'created_at', 'modified_at')
+        read_only_fields = (
+            'favorite_thing_id', 'user', 'created_at', 'modified_at')
         extra_kwargs = {
             'description': {'required': False, 'min_length': 10},
         }
-
-    def validate_metadata(self, value):
-        """
-        check that the value is key/value pair in JSON/dict
-        :param value:
-        :return: value
-        """
-        if type(value) is not dict:
-            raise serializers.ValidationError('Please enter key/value pair in JSON')
-        return value
 
     def create(self, validated_data):
         ranking = validated_data.get('ranking')
@@ -39,7 +33,8 @@ class FavoriteThingSerializer(serializers.ModelSerializer):
             ranking = 1
             validated_data = {**validated_data, 'ranking': ranking}
 
-        if rankings_queryset and ranking > rankings_queryset.last().ranking + 1:
+        if rankings_queryset and \
+                ranking > rankings_queryset.last().ranking + 1:
             ranking = rankings_queryset.last().ranking + 1
             validated_data = {**validated_data, 'ranking': ranking}
 
@@ -51,7 +46,7 @@ class FavoriteThingSerializer(serializers.ModelSerializer):
             favorite_thing = FavoriteThing.objects.create(**validated_data)
             return favorite_thing
         except IntegrityError:
-            raise serializers.ValidationError('Favorite thing already exist in database')
+            raise serializers.ValidationError('Favorite thing already exist')
 
     def update(self, instance, validated_data):
         ranking = validated_data.get('ranking', instance.ranking)
@@ -68,12 +63,16 @@ class FavoriteThingSerializer(serializers.ModelSerializer):
 
         existing_ranking = rankings_queryset.filter(ranking=ranking)
 
-        if existing_ranking and existing_ranking.first().favorite_thing_id != favorite_thing_id:
+        if existing_ranking and \
+                existing_ranking.first().favorite_thing_id != \
+                favorite_thing_id:
             if ranking > instance.ranking:
-                next_rankings = rankings_queryset.filter(ranking__range=(instance.ranking+1, ranking))
+                next_rankings = rankings_queryset.filter(
+                    ranking__range=(instance.ranking+1, ranking))
                 reorder_rankings_subtract(next_rankings)
             else:
-                next_rankings = rankings_queryset.filter(ranking__range=(ranking, instance.ranking-1))
+                next_rankings = rankings_queryset.filter(
+                    ranking__range=(ranking, instance.ranking-1))
                 reorder_rankings(next_rankings)
 
         for attr, value in validated_data.items():
@@ -83,4 +82,5 @@ class FavoriteThingSerializer(serializers.ModelSerializer):
             instance.save()
             return instance
         except IntegrityError:
-            raise serializers.ValidationError('Favorite thing already exist in database')
+            raise serializers.ValidationError(
+                'Favorite thing already exist in database')

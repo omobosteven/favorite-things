@@ -27,7 +27,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=200, required=True)
-    password = serializers.CharField(write_only=True, max_length=200, required=True)
+    password = serializers.CharField(
+        write_only=True, max_length=200, required=True)
     token = serializers.SerializerMethodField(read_only=True)
 
     def get_token(self, validated_data):

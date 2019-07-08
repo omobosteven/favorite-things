@@ -61,7 +61,8 @@ class CategoryTest(BaseViewTest):
         data = {'name': 'phone'}
         response = self.client.post(reverse('create_list_category'), data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data['message'], 'Category added successfully')
+        self.assertEqual(response.data['message'],
+                         'Category added successfully')
 
     def test_get_user_category(self):
         """
@@ -71,4 +72,3 @@ class CategoryTest(BaseViewTest):
         response = self.client.get(reverse('create_list_category'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 3)
-

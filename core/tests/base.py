@@ -45,23 +45,32 @@ class BaseViewTest(APITestCase):
         )
 
         # add category test data
-        self.default_category_places = self.create_category(self.admin_user, 'places', True)
-        self.default_category_food = self.create_category(self.admin_user, 'food', True)
+        self.default_category_places = self.create_category(self.admin_user,
+                                                            'places', True)
+        self.default_category_food = self.create_category(self.admin_user,
+                                                          'food', True)
         self.category_laptop = self.create_category(self.user, 'laptop')
         self.category_phone = self.create_category(self.user2, 'phone')
 
         # add favorite_thing test data
         self.user1_favorite_1 = self.create_favorite_things(
-            title='rice', ranking=1, category=self.default_category_food, user=self.user)
+            title='rice', ranking=1,
+            category=self.default_category_food, user=self.user)
         self.user1_favorite_2 = self.create_favorite_things(
-            title='beans', ranking=2, category=self.default_category_food, user=self.user)
+            title='beans', ranking=2,
+            category=self.default_category_food, user=self.user)
         self.user1_favorite_3 = self.create_favorite_things(
-            title='bread', ranking=3, category=self.default_category_food, user=self.user)
+            title='bread', ranking=3,
+            category=self.default_category_food, user=self.user)
         self.user1_favorite_4 = self.create_favorite_things(
-            title='macbook_pro', ranking=1, category=self.category_laptop, user=self.user)
+            title='macbook_pro', ranking=1,
+            category=self.category_laptop, user=self.user)
         self.user1_favorite_5 = self.create_favorite_things(
-            title='hp_elite', ranking=2, category=self.category_laptop, user=self.user)
+            title='hp_elite', ranking=2,
+            category=self.category_laptop, user=self.user)
         self.user2_favorite_1 = self.create_favorite_things(
-            title='samsung_a30', ranking=1, category=self.category_phone, user=self.user2)
+            title='samsung_a30', ranking=1,
+            category=self.category_phone, user=self.user2)
         self.user2_favorite_2 = self.create_favorite_things(
-            title='samsung_a80', ranking=2, category=self.category_phone, user=self.user2)
+            title='samsung_a80', ranking=2,
+            category=self.category_phone, user=self.user2)

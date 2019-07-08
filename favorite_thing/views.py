@@ -18,13 +18,14 @@ class FavoriteThingsList(generics.ListCreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        category_id = request.data.get('category')
-        category_queryset = Category.objects.filter(pk=category_id)
-        category = category_queryset.filter(Q(user=self.request.user) | Q(default=True))
+        category_name = request.data.get('category')
+        category_queryset = Category.objects.filter(name=category_name)
+        category = category_queryset.filter(
+            Q(user=self.request.user) | Q(default=True))
         if not category:
             return Response({
-                'category': 'Category unavailable - object not found'
-            }, status=status.HTTP_404_NOT_FOUND)
+                'message': 'Category unavailable - object not found'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
         self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -33,7 +34,8 @@ class FavoriteThingsList(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        queryset = FavoriteThing.objects.filter(user=self.request.user).order_by('ranking')
+        queryset = FavoriteThing.objects.filter(
+            user=self.request.user).order_by('ranking')
         return queryset
 
 
@@ -43,22 +45,25 @@ class FavoriteThingsDetails(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, IsObjectOwner)
 
     def get_queryset(self):
-        queryset = FavoriteThing.objects.order_by('ranking').filter(user=self.request.user)
+        queryset = FavoriteThing.objects.order_by('ranking').filter(
+            user=self.request.user)
         return queryset
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer = self.get_serializer(
+            instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
 
         category = request.data.get('category', '')
         if category:
-            category_queryset = Category.objects.filter(pk=category)
-            category = category_queryset.filter(Q(user=self.request.user) | Q(default=True))
+            category_queryset = Category.objects.filter(name=category)
+            category = category_queryset.filter(
+                Q(user=self.request.user) | Q(default=True))
             if not category:
                 return Response({
-                    'detail': 'Category unavailable - object not found'
+                    'message': 'Category unavailable - object not found'
                 }, status=status.HTTP_404_NOT_FOUND)
 
         self.perform_update(serializer)
@@ -67,7 +72,8 @@ class FavoriteThingsDetails(generics.RetrieveUpdateDestroyAPIView):
 
     def perform_destroy(self, instance):
         queryset = self.get_queryset()
-        next_rankings = queryset.filter(Q(ranking__gt=instance.ranking) & Q(category=instance.category))
+        next_rankings = queryset.filter(
+            Q(ranking__gt=instance.ranking) & Q(category=instance.category))
         reorder_rankings_subtract(next_rankings)
         instance.delete()
 
@@ -85,5 +91,6 @@ class FavoriteThingsInCategory(generics.ListAPIView):
         return Response(serializer.data)
 
     def get_queryset(self):
-        queryset = FavoriteThing.objects.order_by('ranking').filter(user=self.request.user)
+        queryset = FavoriteThing.objects.order_by('ranking').filter(
+            user=self.request.user)
         return queryset

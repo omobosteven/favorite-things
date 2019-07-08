@@ -12,7 +12,8 @@ class UserAuthTests(BaseViewTest):
         """
         with self.assertRaises(ValueError) as msg:
             get_user_model().objects.create_user(None, 'pass1234')
-        self.assertEqual(str(msg.exception), 'Customer must have an email address')
+        self.assertEqual(str(msg.exception),
+                         'Customer must have an email address')
 
     def test_post_and_register_user(self):
         """
@@ -38,7 +39,8 @@ class UserAuthTests(BaseViewTest):
         }
         response = self.client.post(reverse('login_user'), data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['message'], 'Welcome back, Login successfully')
+        self.assertEqual(response.data['message'],
+                         'Welcome back, Login successfully')
 
     def test_post_login_invalid_user(self):
         """

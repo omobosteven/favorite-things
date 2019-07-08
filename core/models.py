@@ -1,8 +1,16 @@
 from django.db import models
-from django.contrib.postgres.fields import JSONField
-from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib.postgres.fields import HStoreField
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from .case_insentitive_mixin import CaseInsensitiveFieldMixin
+
+
+class CICharField(CaseInsensitiveFieldMixin, models.CharField):
+    pass
+
+
+class CIEmailField(CaseInsensitiveFieldMixin, models.EmailField):
+    pass
 
 
 class UserManger(BaseUserManager):
@@ -30,9 +38,9 @@ class UserManger(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     user_id = models.AutoField(primary_key=True)
-    firstname = models.CharField(max_length=255)
-    lastname = models.CharField(max_length=255)
-    email = models.EmailField(unique=True, max_length=255)
+    firstname = CICharField(max_length=255)
+    lastname = CICharField(max_length=255)
+    email = CIEmailField(unique=True, max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -44,9 +52,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Category(models.Model):
     category_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
+    name = CICharField(max_length=255)
     default = models.BooleanField(default=False)
-    user = models.ManyToManyField(User, related_name='categories', through='CategoryUser')
+    user = models.ManyToManyField(User, related_name='categories',
+                                  through='CategoryUser')
 
     def __str__(self):
         return self.name
@@ -67,12 +76,14 @@ class CategoryUser(models.Model):
 
 class FavoriteThing(models.Model):
     favorite_thing_id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=250)
-    description = models.TextField()
+    title = CICharField(max_length=250)
+    description = models.TextField(blank=True, null=True)
     ranking = models.PositiveIntegerField()
-    metadata = JSONField(encoder=DjangoJSONEncoder, null=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='favorite_things')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorite_things')
+    metadata = HStoreField(null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,
+                                 related_name='favorite_things')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name='favorite_things')
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -90,7 +101,8 @@ class FavoriteThing(models.Model):
 class AuditLog(models.Model):
     audit_log_id = models.AutoField(primary_key=True)
     log = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='audit_log')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name='audit_log')
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
