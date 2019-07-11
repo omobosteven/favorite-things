@@ -1,8 +1,8 @@
 from rest_framework import generics
-from .serializers import AuditLogSerializers
 from rest_framework.permissions import IsAuthenticated
 from core.authentication import CookieAuthentication
 from core.models import AuditLog
+from .serializers import AuditLogSerializers
 
 
 class AuditLogList(generics.ListAPIView):
