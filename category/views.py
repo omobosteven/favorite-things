@@ -1,11 +1,11 @@
-from rest_framework import generics, status
-from rest_framework.response import Response
-from .serializers import CategorySerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from core.authentication import CookieAuthentication
 from django.db.models import Q
 from django.db import IntegrityError
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from core.authentication import CookieAuthentication
 from core.models import Category, CategoryUser
+from .serializers import CategorySerializer
 
 
 class CreateListCategoryView(generics.ListCreateAPIView):

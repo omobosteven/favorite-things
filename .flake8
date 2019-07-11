@@ -3,5 +3,6 @@ exclude =
     migrations,
     __pychache__,
     manage.py,
-    settings.py
+    base.py,
+    production.py
 max-line-length = 79

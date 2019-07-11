@@ -1,9 +1,9 @@
+from django.db.utils import IntegrityError
+from django.db.models import Q
 from rest_framework import serializers
 from core.models import FavoriteThing
-from django.db.models import Q
-from favorite_thing.helper import reorder_rankings, reorder_rankings_subtract
-from django.db.utils import IntegrityError
 from core.models import Category
+from .helper import reorder_rankings, reorder_rankings_subtract
 
 
 class FavoriteThingSerializer(serializers.ModelSerializer):
