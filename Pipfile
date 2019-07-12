@@ -15,10 +15,10 @@ coverage = "*"
 pytest-django = "*"
 pytest = "*"
 coveralls = "*"
-favorite-things = {editable = true,path = "."}
 django-cors-headers = "*"
 python-decouple = "*"
 gunicorn = "*"
+favorite-things = {editable = true,path = "."}
 
 [requires]
 python_version = "3.7"
