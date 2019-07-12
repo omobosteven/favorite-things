@@ -25,7 +25,12 @@ test:
 test-html-coverage:
 	@cd server; coverage html
 
-start-client:
+# Frontend commands
+
+npm-install:
+	@cd client; npm install
+
+serve-client:
 	@cd client; npm run serve
 
 build-client:

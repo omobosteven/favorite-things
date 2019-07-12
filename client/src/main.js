@@ -10,14 +10,12 @@ import {
   FontAwesomeLayers,
   FontAwesomeLayersText,
 } from '@fortawesome/vue-fontawesome';
-import dotenv from 'dotenv';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-dotenv.config();
 const baseUrl = process.env.VUE_APP_AXIOS_BASE_URL;
 
 axios.defaults.xsrfCookieName = 'csrftoken';
