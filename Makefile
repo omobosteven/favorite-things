@@ -2,7 +2,7 @@ pipenv-install:
 	pipenv install -e .
 
 start:
-	@cd server; manage.py runserver 0.0.0.0:8000 --settings=config.settings.base
+	@cd server; python manage.py runserver 0.0.0.0:8000 --settings=config.settings.base
 
 start-gunicorn:
 	@cd server; gunicorn --bind 0.0.0.0:8000 --env DJANGO_SETTINGS_MODULE=config.settings.production config.wsgi --daemon
@@ -11,10 +11,10 @@ stop-gunicorn:
 	@cd server; pkill -f gunicorn
 
 migration:
-	@cd server; manage.py makemigrations
+	@cd server; python manage.py makemigrations
 
 migrate:
-	@cd server; manage.py migrate
+	@cd server; python manage.py migrate
 
 test:
 	@cd server; coverage erase
