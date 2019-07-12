@@ -7,10 +7,10 @@ services:
   - postgresql
 
 install:
-  - pipenv install
+  - make pipenv-install
 
 script:
-  - coverage run -m pytest
+  - make test
 
 after_success:
   - coveralls

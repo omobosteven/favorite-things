@@ -6,7 +6,7 @@ from core.custom_permissions import IsObjectOwner
 from core.authentication import CookieAuthentication
 from core.models import FavoriteThing, Category
 from django.db.models import Q
-from favorite_thing.helper import reorder_rankings_subtract
+from .helper import reorder_rankings_subtract
 
 
 class FavoriteThingsList(generics.ListCreateAPIView):
