@@ -25,8 +25,8 @@ echo "Installing nodejs"
 {
 	sudo apt-get install wget
 	wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
-	source ~/.bashrc
-	nvm install 11.12.20
+	source ~/.profile
+	nvm install 11.12.0
 	echo "Node installed :)"
 } || {
 	echo "Nodejs installation failed"
@@ -43,7 +43,7 @@ echo "client built :)"
 echo "Installing server depenedencies"
 	make pipenv-install
 	pipenv run make migrate
-	pipenv run start-gunicorn
+	pipenv run make start-gunicorn
 echo "Gunicorn server started"
 
 echo "Installing Nginx"
