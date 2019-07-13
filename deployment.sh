@@ -15,7 +15,7 @@ echo "Installing pipenv..."
 {
 	echo 'export PATH="${HOME}/.local/bin:$PATH"' >> ~/.bashrc
 	source ~/.bashrc
-	sudo python3.7 -m pip install --user pipenv
+	python3.7 -m pip install --user pipenv
 	echo "Pipenv installed :)"
 } || {
 	echo "Pipenv installation failed"
@@ -25,6 +25,9 @@ echo "Installing nodejs"
 {
 	sudo apt-get install wget
 	wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 	source ~/.profile
 	nvm install 11.12.0
 	echo "Node installed :)"
@@ -41,7 +44,7 @@ make build-client
 echo "client built :)"
 
 echo "Installing server depenedencies"
-	make pipenv-install
+	pipenv run make pipenv-install
 	pipenv run make migrate
 	pipenv run make start-gunicorn
 echo "Gunicorn server started"
