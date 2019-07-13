@@ -1,0 +1,15 @@
+server {
+    listen      80;
+    server_name 18.224.190.48;
+    server_name ec2-18-224-190-48.us-east-2.compute.amazonaws.com;
+    charset utf-8;
+    root    /home/ubuntu/favorite-things/client/dist;
+    index   index.html index.htm;
+    # Always serve index.html for any request
+    location / {
+        root /home/ubuntu/favorite-things/client/dist;
+        try_files $uri /index.html;
+    }
+    error_log  /var/log/nginx/vue-app-error.log;
+    access_log /var/log/nginx/vue-app-access.log;
+}
