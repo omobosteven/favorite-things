@@ -55,7 +55,7 @@ sudo touch /etc/nginx/sites-available/favorite_things
 sudo ln -s /etc/nginx/sites-available/favorite_things /etc/nginx/sites-enabled/favorite_things
 
 sudo cp nginx.conf /etc/nginx/nginx.conf
-sudo cp favorite_things /etc/nginx/sites-available/favorite-things
+sudo cp favorite-things /etc/nginx/sites-available/favorite-things
 sudo nginx -t
 sudo service nginx restart
 
