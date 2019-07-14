@@ -81,6 +81,8 @@ make build-client
 http://127.0.0.1:8080
 ```
 
+- NB: You can choose to create a django admin superuser and create categories using the superuser. These categories will serve as the default categories for the every user.
+
 ## Deployment steps on AWS
 - Go to [AWS](https://aws.amazon.com/) and create an EC2 instance using Ubuntu Server 18.04 LTS (HVM), SSD Volume Type 64-bit x86. NB: Ensure to Download the key pair generated
 - Go to security groups under network and security on AWS console and enable the following ports [8000, 80] source should be set to anywhere.
