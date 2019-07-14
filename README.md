@@ -4,6 +4,14 @@
 
 An application that allows users to track their favorite things based on category and ranking
 
+## Content
+- [Development Set Up](#development-set-up)
+  * [Backend](#backend)
+  * [Frontend](#frontend)
+- [Deployment Steps](#deployment-steps-on-aws)
+- [API endpoints](#api-endpoints)
+- [Technologies Used](#built-with)
+
 ## Development set up
 
 #### (BACKEND)
@@ -145,6 +153,71 @@ server {
 	```
 	
 - Open app on browser with your Public DNS (IPv4) on AWS console
+
+
+## API Endpoints
+<table>
+  <tr>
+      <th>Request</th>
+      <th>End Point</th>
+      <th>Action</th>
+  </tr>
+    <tr>
+      <td>POST</td>
+      <td>/users/register</td>
+      <td>Register a User</td>
+  </tr>
+  <tr>
+    <td>POST</td>
+    <td>/users/login</td>
+    <td>Login a user</td>
+  </tr>
+  <tr>
+    <td>GET</td>
+    <td>/categories</td>
+    <td>Get all default and user's categories</td>
+  </tr>
+  <tr>
+    <td>POST</td>
+    <td>/categories</td>
+    <td>Create a new category</td>
+  </tr>
+  <tr>
+    <td>POST</td>
+    <td>/thing</td>
+    <td>Create a favorite thing</td>
+  </tr>
+  <tr>
+    <td>GET</td>
+    <td>/things</td>
+    <td>Get all favorite things</td>
+  </tr>
+  <tr>
+    <td>GET</td>
+    <td>/things/{int:id}</td>
+    <td>Get the details of a favorite thing</td>
+  </tr>
+  <tr>
+    <td>GET</td>
+    <td>/thing/categories/{int:category_id}</td>
+    <td>Get all favorite thing in category</td>
+  </tr>
+  <tr>
+    <td>PUT</td>
+    <td>/thing/{int:id}</td>
+    <td>Update a favorite thing</td>
+  </tr>  
+  <tr>
+    <td>PATCH</td>
+    <td>/thing/{int:id}</td>
+    <td>Update a favorite thing</td>
+  </tr>
+  <tr>
+    <td>GET</td>
+    <td>/logs</td>
+    <td>Get audit log for user</td>
+  </tr>
+</table>
 
 
 ## Built with
