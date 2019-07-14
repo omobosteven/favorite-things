@@ -22,7 +22,7 @@ test:
 	@cd server; coverage report -m
 	@cd server; flake8
 
-test-html-coverage:
+html-test-coverage:
 	@cd server; coverage html
 
 # Frontend commands

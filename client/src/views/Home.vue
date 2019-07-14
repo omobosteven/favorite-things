@@ -15,3 +15,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .home {
+    width: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+</style>
