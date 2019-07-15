@@ -179,12 +179,12 @@ server {
   </tr>
   <tr>
     <td>POST</td>
-    <td>/categories</td>
+    <td>/categories/</td>
     <td>Create a new category</td>
   </tr>
   <tr>
     <td>POST</td>
-    <td>/thing</td>
+    <td>/thing/</td>
     <td>Create a favorite thing</td>
   </tr>
   <tr>
