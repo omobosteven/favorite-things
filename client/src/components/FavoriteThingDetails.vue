@@ -82,9 +82,7 @@ export default {
         .then(() => {
           this.$router.push({ name: 'favorite-things' });
         })
-        .catch((error) => {
-          console.log(error.response.data);
-        });
+        .catch(error => error.response.data);
     },
   },
   mounted() {
@@ -93,9 +91,7 @@ export default {
       .then((response) => {
         this.favoriteThing = response.data;
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(error => error.response.data);
   },
 };
 </script>
