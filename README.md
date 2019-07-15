@@ -124,7 +124,7 @@ e.g
 ```
 VUE_APP_AXIOS_BASE_URL='http://ec2-3-18-220-65.us-east-2.compute.amazonaws.com:8000/'
 ```
-- Ensure you are in the favorite thing directory and create a file `favorite-things`, copy and edit the block of code below
+- Ensure you are in the favorite thing directory and create a file `favorite_things`, copy and edit the block of code below
 ```
 server {
     listen      80;
