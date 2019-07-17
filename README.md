@@ -184,7 +184,7 @@ server {
   </tr>
   <tr>
     <td>POST</td>
-    <td>/thing/</td>
+    <td>/things/</td>
     <td>Create a favorite thing</td>
   </tr>
   <tr>
@@ -199,17 +199,17 @@ server {
   </tr>
   <tr>
     <td>GET</td>
-    <td>/thing/categories/{int:category_id}</td>
+    <td>/things/categories/{int:category_id}</td>
     <td>Get all favorite thing in category</td>
   </tr>
   <tr>
     <td>PUT</td>
-    <td>/thing/{int:id}</td>
+    <td>/things/{int:id}</td>
     <td>Update a favorite thing</td>
   </tr>  
   <tr>
     <td>PATCH</td>
-    <td>/thing/{int:id}</td>
+    <td>/things/{int:id}</td>
     <td>Update a favorite thing</td>
   </tr>
   <tr>
